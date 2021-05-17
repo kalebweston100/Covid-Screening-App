@@ -1,0 +1,261 @@
+html
+{
+    background-color: rgb(206, 206, 206);
+}
+
+div
+{
+    text-align: center;
+    font-family: Arial;
+}
+
+h1
+{
+    color: rgb(29, 29, 44);
+    font-weight: 100;
+}
+
+h2
+{
+    color: rgb(29, 29, 44);
+    font-weight: 100;
+}
+
+h3
+{
+    color: rgb(29, 29, 44);
+    font-weight: 100;
+}
+
+h4
+{
+    color: rgb(29, 29, 44);
+    font-weight: 100;
+}
+
+img
+{
+    width: 30vh;
+    height: 30vh;
+    border: lightcyan solid 0.2vmin;
+    box-shadow: 0 0 1vh lightcyan;
+    object-fit: cover;
+}
+
+ul
+{
+    text-align: left;
+    border: lightcyan solid 0.1vmin;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    box-shadow: 0 0 1vh lightcyan;
+
+}
+
+li
+{
+    color: lightcyan;
+    text-shadow: 0 0 0.5vh turquoise;
+    font-size: 2.5vh;
+}
+
+select
+{
+    color: lightcyan;
+    text-shadow: 0 0 0.5vh turquoise;
+    margin-left: 42vw;
+    margin-right: 42vw;
+    font-family: Arial;
+    background-color: black;
+    box-shadow: 0 0 1vh lightcyan;
+
+}
+
+select:active, select:hover
+{
+    outline-color: turquoise;
+}
+
+option
+{
+    background-color: black;
+    color: lightcyan;
+    text-shadow: 0 0 0.5vh turquoise;
+    font-family: Arial;
+}
+
+input
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    background-color: lightcyan;
+    color: rgb(29, 29, 44);
+    font-family: Arial;
+    border: solid .3vh rgb(29, 29, 44);
+    text-align: center;
+    font-size: 2.5vmin;
+}
+
+input:focus
+{
+    outline-color: rgb(29, 29, 44);
+}
+
+::placeholder
+{
+    color: rgb(29, 29, 44);
+
+}
+
+textarea
+{
+    font-family: Arial;
+    color: rgb(29, 29, 44);
+    width: 60vmin;
+    height: 20vmin;
+    background-color: lightcyan;
+    font-size: 2.5vmin;
+}
+
+a
+{
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(29, 29, 44);
+    font-size: 3vmin;
+    height: 3.5vh;
+    background-color: rgb(80, 238, 247);
+    border: solid .3vh rgb(29, 29, 44);
+    width: 20vmin;
+    margin: 2vmin;
+}
+
+button
+{
+    display: block;
+    background-color: rgb(255, 87, 112);
+    text-decoration: none;
+    color: lightcyan;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    font-size: 2.5vmin;
+    font-family: Arial;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    width: 20vmin;
+    border: lightcyan solid 0.3vmin;
+}
+
+.blue_button
+{
+    background-color: lightcyan;
+    border: rgb(29, 29, 44) solid .3vmin;
+    color: rgb(29, 29, 44);
+}
+
+button:focus
+{
+    outline-color: rgb(29, 29, 44) solid .3vh;
+}
+
+.button_styled
+{
+    display: inline-block;
+    border: lightcyan solid 0.1vmin;
+    background-color: black;
+    text-decoration: none;
+    color: lightcyan;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    margin: 2%;
+    font-size: 2vmin;
+    text-shadow: 0 0 .5vh turquoise;
+    box-shadow: 0 0 1vh lightcyan;
+}
+
+.title
+{
+    color: lightcyan;
+    margin: 0;
+    display: inline-block;
+}
+
+.title_bar
+{
+    background-color: rgb(255, 87, 112);
+}
+
+.company_bar
+{
+    background-color: lightcyan;
+}
+
+.navbar
+{
+    text-align: center;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+
+.item_container
+{
+    border: rgb(29, 29, 44) solid .1vh;
+    background-color: rgb(80, 238, 247);
+}
+
+.page_container
+{
+    border: rgb(255, 87, 112) solid 0.3vmin;
+    background-color: rgb(80, 238, 247);
+    height: 60vmin;
+}
+
+.change_container
+{
+    background-color: rgb(80, 238, 247);
+    border: rgb(255, 87, 112) solid 0.3vmin;
+}
+
+.error
+{
+    display: block;
+    border: lightcyan solid 0.1vmin;
+    background-color: rgb(255, 87, 112);
+    text-decoration: none;
+    color: lightcyan;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    margin: auto;
+    font-size: 2vmin;
+    width: 30vw;
+}
+
+.info
+{
+    display: block;
+    border: rgb(255, 87, 112) solid .3vmin;
+    box-shadow: 0 0 1vh lightcyan;
+    background-color: lightcyan;
+    text-decoration: none;
+    color: rgb(29, 29, 44);
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    margin: auto;
+    width: 30vw;
+}
+

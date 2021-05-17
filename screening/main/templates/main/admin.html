@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel='stylesheet' type='text/css' href={% static 'css/style.css' %}>
+        <script src={% static 'js/jquery-3.4.1.js'%}></script>
+        <script src={% static 'js/vue.js'%}></script>
+        <script src={% static 'js/vue-router.js'%}></script>
+        <script src={% static 'main/admin.js'%}></script>
+    </head>
+
+    <body>
+        {% csrf_token %}
+
+        <div id='app'>
+
+            <div class='title_bar'>
+                <h1 class='title'>CSafe</h1>
+            </div>
+
+            <div class='change_container'>
+                <h1>{{ name }}</h1>
+            </div>
+
+            <div class='navbar'>
+                <router-link to='/'>Data</router-link>
+                <router-link to='/questions'>Questions</router-link>
+                <router-link to='/users'>Users</router-link>
+                <router-link to='/account'>Account</router-link>
+                <a v-on:click='logout()'>Logout</a>
+            </div>
+
+            <h2 v-if='app_message' class='notification'>[[app_message]]</h2>
+
+            <router-view></router-view>   
+
+        </div>
+
+
+        <script type='text/x-template' id='summary'>
+            <div>
+
+                <div class='change_container'>
+
+                    <div class='navbar'>
+                        <router-link to='/'>Summary</router-link>
+                        <router-link to='/answers'>Answers</router-link>
+                    </div>
+
+                    <h1>Summary</h1>
+
+                    <h4>Summary Start Date</h4>
+                    <input type='date' v-model='start_date' v-on:change='checkDateError()'>
+                    <h4>Summary End Date</h4>
+                    <input type='date' v-model='end_date' v-on:change='checkDateError()'>
+                    <button v-on:click='retrieveSummary()'>Filter</button>
+                    <button v-on:click='clearFilter()'>Clear Filter</button>
+
+                    <h3 v-if='total'>There were [[total]] entries total</h3>
+                    <h3 v-if='safe'>[[safe]] were safe entries</h3>
+                    <h3 v-if='unsafe'>[[unsafe]] were unsafe entries</h3>
+
+                    <div v-for='day in days'>
+
+                        <div class='item_container'>
+
+                            <h3>[[day.date]]</h3>
+                            <h3>[[day.total]] total entries</h3>
+                            <h3>[[day.safe]] safe entries</h3>
+                            <h3>[[day.unsafe]] unsafe entries</h3>
+
+                        </div>
+
+                    </div>
+
+                    <h2 v-if='message' class='notification'>[[message]]</h2>
+                </div>
+
+            </div>
+        </script>
+
+
+        <script type='text/x-template' id='answers'>
+            <div>
+
+                <div class='change_container'>
+
+                    <div class='navbar'>
+                        <router-link to='/' class='inner_a'>Summary</router-link>
+                        <router-link to='/answers' class='inner_a'>Answers</router-link>
+                    </div>
+                    <h1>Answers</h1>
+
+                    <div v-for='question in questions'>
+
+                        <h2>[[question.content]]</h2>
+                        <button v-on:click='retrieveAnswers(question.question_number, question.bool_answer)'>Show</button>
+
+                        <div v-if='current_number == question.question_number'>
+
+                            <div v-if='bool_question'>
+                                <h3>'Yes' Answer Count: [[yes_count]]</h3>
+                                <h3>'No' Answer Count: [[no_count]]</h3>
+                            </div>
+
+                            <div v-for='answer in answers'>
+
+                                <h3>[[answer.content]]</h3>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </script>
+
+
+        <script type='text/x-template' id='questions'>
+            <div>
+
+                <div class='change_container'>
+                    <h1>Questions</h1>
+
+                    <button class='blue_button' v-on:click='addDefault()'>Add Standard Questions</button>
+
+                    <button class='blue_button' v-on:click='showSave()'>Show/Hide Add Custom Question</button>
+
+                    <div v-if='show_save' class='item_container'>
+                    <h2>Custom Question</h2>
+
+                        <textarea v-model='content' placeholder='Question'></textarea>
+
+                        <h3>Yes or no question</h3>
+                        <input type='checkbox' v-model='bool_answer' v-on:change='handleBool()' checked>
+
+                        <div v-if='bool_answer'>
+                            <h3>Unsafe if answered yes</h3>
+                            <input type='checkbox' v-model='notify' checked>
+                            <h3>Sensitive question</h3>
+                            <input type='checkbox' v-model='personal' v-on:change='handlePersonal()'>
+                            <h3>Answers to personal questions will not be shown to you,
+                                they can only be used to determine if any employee is unsafe</h3>
+                        </div>
+
+                        <button v-on:click='saveQuestion()'>Save Question</button>
+                    </div>
+
+                    <h2 v-if='message' class='notification'>[[message]]</h2>
+
+                    <h2>Current Questions</h2>
+
+                    <h3 v-if='questions.length == 0'>No questions saved</h3>
+
+                    <div v-for='question in questions'>
+
+                        <div class='item_container'>
+                            <h3>[[question.content]]</h3>
+                            <h3>Yes or no question: [[question.bool_answer]]</h3>
+                            <h3 v-if='question.bool_answer'>Unsafe if answered yes: [[question.notify]]</h3>
+                            <h3 v-if='question.bool_answer'>Personal question: [[question.personal]]</h3>
+                            <button v-on:click='confirmRemove(question.question_number)'>Remove</button>
+                        </div>
+
+                        <div v-if='confirm_remove && question.question_number == remove_number' class='item_container'>
+                            <h3>Are you sure you want to remove this question?</h3>
+                            <button v-on:click='removeQuestion()'>Confirm</button>
+                            <button v-on:click='cancelRemove()'>Cancel</button>  
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </script>
+
+
+        <script type='text/x-template' id='users'>
+            <div>
+
+                <div class='change_container'>
+                    <h1>Users</h1>
+
+                    <button class='blue_button' v-on:click='showSearch()'>Show/Hide Search</button>
+
+                    <div v-if='show_search' class='item_container'>
+
+                        <h4>Search users by first and/or last name</h4>
+                        <input type='text' v-model='first_name' placeholder='First Name'>
+                        <input type='text' v-model='last_name' placeholder='Last Name'>
+                        <button v-on:click='display()'>Search</button>
+
+                    </div>
+
+                    <button class='blue_button' v-on:click='clearSearch()'>Clear Search</button>
+
+                    <div v-if='results_first || results_last'>
+                        <h3>Results being shown for search:</h3>
+                        <h4 v-if='results_first'>First name: [[results_first]]</h4>
+                        <h4 v-if='results_last'>Last name: [[results_last]]</h4>
+                    </div>
+
+                    <h2>[[users.length]] user(s) found</h2>
+
+                    <h2 v-if='message' class='notification'>[[message]]</h2>
+
+                    <div v-for='user in users'>
+
+                        <h3>[[user.first_name]] [[user.last_name]]</h3>
+                        
+                        <button v-on:click='confirmRemove(user.client_number)'>Remove</button>
+
+                        <div v-if='confirm_remove && user.client_number == remove_number' class='item_container'>
+                            <h3>Are you sure you want to remove this user?</h3>
+                            <button v-on:click='removeUser()'>Confirm</button>
+                            <button v-on:click='cancelRemove()'>Cancel</button>  
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </script>
+
+
+        <script type='text/x-template' id='account'>
+            <div>
+
+                <div class='change_container'>
+                    <h1>Account</h1>
+
+                    <h3 class='info'>Change your Company Key and Company Password
+                                            if you believe your account is no longer secure.
+                                            All your users, entries, and questions will still be saved.</h3>
+
+                    <h3 v-if='company.active'>Your Company is Active</h3>
+                    <h3 v-else>Your Company is Deactivated</h3>
+
+                    <h3>Company Key: [[company.key]]</h3>
+                    <h3>Company Name: [[company.name]]</h3>
+
+                    <h2 v-if='message' class='notification'>[[message]]</h2>
+
+                    <button v-on:click='deactivateCompany()'>Deactivate Your Company</button>
+                    <button v-on:click='reactivateCompany()'>Reactivate Your Company</button>
+
+                    <button v-on:click='confirmChange()'>Change Company Key</button>
+
+                    <div v-if='confirm_change' class='item_container'>
+                        <h3>Are you sure you want to reset your Company Key?</h3>
+                        <button v-on:click='resetKey()'>Confirm</button>
+                        <button v-on:click='cancelChange()'>Cancel</button>
+                    </div>
+
+                    <div class='item_container'>
+                        <input type='text' v-model='name' placeholder='New Name'>
+                        <button v-on:click='changeName()'>Change Company Name</button>
+                    </div>
+
+                    <div class='item_container'>
+                        <input type='text' v-model='password' placeholder='New Password'>
+                        <button v-on:click='changePassword()'>Change Company Password</button>
+                    </div>
+                </div>
+
+            </div>
+        </script>
+
+    </body>
+</html>

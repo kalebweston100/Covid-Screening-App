@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel='stylesheet' type='text/css' href={% static 'css/style.css' %}>
+        <script src={% static 'js/jquery-3.4.1.js'%}></script>
+        <script src={% static 'js/vue.js'%}></script>
+        <script src={% static 'js/vue-router.js'%}></script>
+        <script src={% static 'login/login.js'%}></script>
+    </head>
+
+    <body>
+        {% csrf_token %}
+
+        <div id='app'>
+
+            <div class='title_bar'>
+                <h1 class='title'>CSafe</h1>
+            </div>
+
+            <div class='change_container'>
+                <h2>Our Mission</h2>
+
+                <h3>We are a small tech firm committed to integrating
+                    the value of both privacy and data</h3>
+            </div>
+
+            <div class='navbar'>
+                <router-link to='/'>Login</router-link>
+                <router-link to='/key'>Employee</router-link>
+                <router-link to='/register'>Company</router-link>
+            </div>
+
+            <router-view></router-view>
+
+        </div>
+
+        <script type='text/x-template' id='login'>
+            <div>
+
+                <div class='page_container'>
+                    <h2>Login</h2>
+
+                    <input type='text' v-model='username' placeholder='Username'>
+                    <input type='text' v-model='password' placeholder='Password'>
+                    <button v-on:click='login()'>Submit</button>
+
+                    <h3 v-if='message' class='error'>[[message]]</h3>
+                </div>
+
+            </div>
+        </script>
+
+
+        <script type='text/x-template' id='company_key'>
+            <div>
+
+                <div class='page_container'>
+                    <h2>Create an Employee Account</h2>
+
+                    <h4 class='info'>Please enter your Company Key to create an account</h4>
+                    <input type='text' v-model='company_key' placeholder='Company Key'>
+                    <button v-on:click='checkKey()'>Check Key</button>
+
+                    <h4 v-if='message' class='error'>[[message]]</h4>
+
+                </div>
+
+            </div>
+        </script>
+
+
+        <script type='text/x-template' id='create_user'>
+            <div>
+
+                <div class='page_container'>
+                    <h2>Create an Account for [[company_name]]</h2>
+
+                    <input type='text' v-model='first_name' placeholder='First Name'>
+                    <input type='text' v-model='last_name' placeholder='Last Name'>
+                    <input type='text' v-model='username' placeholder='Username'>
+                    <input type='text' v-model='password' v-on:input='checkMatch()' placeholder='Password'>
+                    <input type='text' v-model='confirm_password' v-on:input='checkMatch()' placeholder='Confirm Password'>
+                    <input type='email' v-model='email' placeholder='Email'>
+                    <button v-on='{mouseover: checkFilled, click: create}'>Create</button>
+
+                    <h2 v-if='password_message' class='error'>[[password_message]]</h2>
+                    <h4 v-if='message' class='info'>[[message]]</h4>
+
+                </div>
+
+            </div>
+        </script>
+
+
+        <script type='text/x-template' id='register_company'>
+            <div>
+
+                <div class='page_container'>
+                    <h2>Register Your Company</h2>
+
+                    <h4 class='info'>Your account verification information will be sent to the 
+                                     Company Email you enter</h4>
+
+                    <input type='text' v-model='company_name' placeholder='Company Name'>
+                    <input type='text' v-model='email' v-on:input='checkEmailMatch()' placeholder='Email'>
+                    <input type='text' v-model='confirm_email' v-on:input='checkEmailMatch()' placeholder='Confirm Email'>
+                    <input type='text' v-model='username' placeholder='Username'>
+                    <input type='text' v-model='password' v-on:input='checkPasswordMatch()' placeholder='Password'>
+                    <input type='text' v-model='confirm_password' v-on:input='checkPasswordMatch()' placeholder='Confirm Password'>
+                    <button v-on='{mouseover: checkFilled, click: registerCompany}'>Register</button>
+
+                    <h2 v-if='email_message' class='error'>[[email_message]]</h2>
+                    <h2 v-if='password_message' class='error'>[[password_message]]</h2>
+                    <h2 v-if='message' class='error'>[[message]]</h2>
+                </div>
+
+            </div>
+        </script>
+    
+
+    </body>
+</html>

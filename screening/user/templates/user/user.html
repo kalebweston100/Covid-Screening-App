@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel='stylesheet' type='text/css' href={% static 'css/style.css' %}>
+        <script src={% static 'js/jquery-3.4.1.js'%}></script>
+        <script src={% static 'js/vue.js'%}></script>
+        <script src={% static 'js/vue-router.js'%}></script>
+        <script src={% static 'user/user.js'%}></script>
+    </head>
+
+    <body>
+        {% csrf_token %}
+
+        <div id='app'>
+
+            <div class='title_bar'>
+                <h1 class='title'>CSafe</h1>
+            </div>
+
+            <div class='change_container'>
+                <h1>{{ name }}</h1>
+            </div>
+            
+            <div class='navbar'>
+                <a v-on:click='logout()'>Logout</a>
+            </div>
+
+            <h2 v-if='app_message' class='notification'>[[app_message]]</h2>
+
+            <router-view></router-view>
+
+        </div>
+
+        <script type='text/x-template' id='new'>
+            <div>
+                
+                <div class='page_container'>
+                    <h1>Company Survey</h1>
+
+                    <div v-if='!started && questions.length > 0'>
+                        
+                        <button v-on:click='start()'>Start</button>
+
+                    </div>
+
+                    <div v-if='started && !completed'>
+                        <h2>[[current_question.content]]</h2>
+
+                        <div v-if='current_question.bool_answer'>
+
+                            <label>Yes</label>
+                            <input type='radio' name='bool' value='yes' v-model='bool_content'>
+                            <label>No</label>
+                            <input type='radio' name='bool' value='no' v-model='bool_content'>
+
+                        </div>
+
+                        <div v-else>
+
+                            <textarea v-model='content' placeholder='Answer Here'></textarea>
+
+                        </div>
+                        
+                        <button v-on:click='saveEntry(current_question.question_number)'>Submit</button>
+                    </div>
+
+                    <h4 v-if='message' class='info'>[[message]]</h4>
+
+                </div>
+
+            </div>
+        </script>
+
+    </body>
+</html>

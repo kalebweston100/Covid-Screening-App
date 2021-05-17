@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel='stylesheet' type='text/css' href={% static 'css/style.css' %}>
+        <script src={% static 'js/jquery-3.4.1.js'%}></script>
+        <script src={% static 'js/vue.js'%}></script>
+        <script src={% static 'js/vue-router.js'%}></script>
+        <script src={% static 'verify/register.js'%}></script>
+    </head>
+
+    <body>
+        {% csrf_token %}
+
+        <div id='app'>
+
+            <div class='title_bar'>
+                <h1 class='title'>CSafe</h1>
+            </div>
+
+            <router-view></router-view>
+
+        </div>
+
+        <script type='text/x-template' id='register'>
+            <div>
+
+                <div class='page_container'>
+                    <h1>Verify Your Company Registration</h1>
+
+                    <input type='text' v-model='username' placeholder='Username'>
+                    <input type='text' v-model='password' placeholder='Password'>
+                    <button v-on:click='verifyRegister()'>Submit</button>
+
+                    <h2>[[message]]</h2>
+                </div>
+
+            </div>
+         </script>
+
+    </body>
+</html>

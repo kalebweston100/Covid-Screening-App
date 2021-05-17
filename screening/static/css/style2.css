@@ -1,0 +1,207 @@
+div
+{
+    text-align: center;
+    font-family: Arial;
+}
+
+h1
+{
+    color: turquoise;
+}
+
+h2
+{
+    color: gray;
+}
+
+h3
+{
+    color: gray;
+}
+
+h4
+{
+    color: gray;
+}
+
+img
+{
+    width: 30vh;
+    height: 30vh;
+    border: gray solid 0.2vmin;
+    object-fit: cover;
+}
+
+ul
+{
+    text-align: left;
+    background-color: turquoise;
+    border: gray solid 0.1vmin;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+
+}
+
+li
+{
+    color: white;
+    font-size: 2.5vmin;
+}
+
+select
+{
+    color: gray;
+    margin-left: 42vw;
+    margin-right: 42vw;
+    font-family: Arial;
+}
+
+select:active, select:hover
+{
+    color: turquoise;
+    outline-color: turquoise;
+}
+
+option
+{
+    background-color: turquoise;
+    color: white;
+    font-family: Arial;
+}
+
+input
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    color: gray;
+    font-family: Arial;
+}
+
+label
+{
+    margin-top: 2vh;
+    font-family: Arial;
+    color: gray;
+}
+
+textarea
+{
+    font-family: Arial;
+    color: gray;
+    width: 30vh;
+}
+
+a
+{
+    text-decoration: none;
+    color: white;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font-size: 3vmin;
+}
+
+.a_styled
+{
+    text-decoration: none;
+    color: white;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: none;
+    font-size: 3vmin;
+    background: none;
+}
+
+button
+{
+    display: block;
+    border: gray solid 0.1vmin;
+    background-color: turquoise;
+    text-decoration: none;
+    color: white;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    font-size: 2vmin;
+    font-family: Arial;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.button_styled
+{
+    display: inline-block;
+    border: gray solid 0.1vmin;
+    background-color:turquoise;
+    text-decoration: none;
+    color: white;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    margin: 2%;
+    font-size: 2vmin;
+}
+
+.navbar
+{
+    background-color: turquoise;
+    border: gray solid 0.1vmin;
+    text-align: center;
+    height: 8vh;
+}
+
+.navbar a
+{
+    display: inline-block;
+    margin-top: 3vh;
+}
+
+.inner_navbar a
+{
+    display: inline-block;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    width: 8%;
+    border: gray solid .1vmin;
+}
+
+.item_container
+{
+    border: gray solid 0.1vmin;
+}
+
+.notification
+{
+    display: block;
+    border: gray solid 0.1vmin;
+    background-color:turquoise;
+    text-decoration: none;
+    color: gray;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    margin: auto;
+    font-size: 2vmin;
+    width: 20vw;
+}
+
+.passed
+{
+    color: greenyellow;
+}
+
+.failed
+{
+    color: red;
+}
